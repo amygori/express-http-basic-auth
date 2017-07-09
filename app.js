@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const mustache = require('mustache-express');
 const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/basic_auth');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
