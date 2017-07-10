@@ -9,6 +9,7 @@ mongoose.connect('mongodb://localhost:27017/basic_auth');
 const User =  require('./models/user.js');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const bcrypt = require('bcryptjs');
 
 const app = express();
 
@@ -37,7 +38,7 @@ findUser = function(username, password){
 passport.use(new BasicStrategy(
   function(username, password, done) {
     User.findOne({ name: username }, function(err, user){
-      if (user && user.password === password){
+      if (user && bcrypt.compareSync(password, user.password)){
         return done(null, user);
       }
       return done(null, false);
