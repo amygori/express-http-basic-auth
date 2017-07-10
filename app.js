@@ -6,7 +6,7 @@ const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/basic_auth');
-const User =  require('./models/user.js');
+const User = require('./models/user.js');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const bcrypt = require('bcryptjs');
@@ -26,14 +26,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
-
-findUser = function(username, password){
-  User.findOne({name: username}).then(function(user){
-    console.log('Found!');
-    console.log(user);
-    return user;
-  });
-}
 
 passport.use(new BasicStrategy(
   function(username, password, done) {
